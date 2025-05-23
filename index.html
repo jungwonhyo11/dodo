@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="정보통신 입찰정보 포털 개선 계획 - 실시간 입찰정보 및 낙찰업체 알림 시스템">
+    <meta name="keywords" content="입찰정보, 정보통신, 포털, 실시간 알림, 낙찰정보, 문자발송">
+    <meta name="author" content="정보통신 입찰정보 포털 시스템 개발팀">
+    <title>정보통신 입찰정보 포털 개선 계획</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="responsive.css">
+</head>
+<body>
+    <div class="slide">
+        <div class="slide-header">
+            <div class="logo">정보통신 입찰정보 포털</div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav">
+                <a href="#search-section" class="nav-link">실시간 검색</a>
+                <a href="#collection-section" class="nav-link">정보 수집</a>
+                <a href="#notification-section" class="nav-link">알림 서비스</a>
+                <a href="#analysis-section" class="nav-link">통계 분석</a>
+            </nav>
+            <div class="mobile-menu" id="mobileMenu">
+                <a href="#search-section" class="nav-link">실시간 검색</a>
+                <a href="#collection-section" class="nav-link">정보 수집</a>
+                <a href="#notification-section" class="nav-link">알림 서비스</a>
+                <a href="#analysis-section" class="nav-link">통계 분석</a>
+            </div>
+        </div>
+        <div class="slide-content">
+            <div class="title-block">
+                <h1 class="main-title">정보통신 입찰정보 포털 개선 계획</h1>
+                <h2 class="sub-title">실시간 입찰정보 및 낙찰업체 알림 시스템 구축</h2>
+                
+                <div class="icon-grid">
+                    <a href="#search-section" class="icon-item">
+                        <i class="fas fa-search"></i>
+                        <div class="icon-label">실시간 검색</div>
+                    </a>
+                    <a href="#collection-section" class="icon-item">
+                        <i class="fas fa-database"></i>
+                        <div class="icon-label">정보 수집</div>
+                    </a>
+                    <a href="#notification-section" class="icon-item">
+                        <i class="fas fa-bell"></i>
+                        <div class="icon-label">알림 서비스</div>
+                    </a>
+                    <a href="#analysis-section" class="icon-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="icon-label">통계 분석</div>
+                    </a>
+                </div>
+
+                <section id="search-section" class="search-section">
+                    <h3 class="section-title">실시간 입찰정보 검색</h3>
+                    <div class="search-container">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" class="search-input" placeholder="검색어를 입력하세요">
+                            <button id="searchButton" class="search-button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="search-filters">
+                            <select id="searchType" class="search-filter">
+                                <option value="all">전체</option>
+                                <option value="title">사업명</option>
+                                <option value="agency">기관명</option>
+                                <option value="location">지역</option>
+                                <option value="type">공사유형</option>
+                                <option value="date">날짜</option>
+                            </select>
+                            <select id="searchStatus" class="search-filter">
+                                <option value="all">전체</option>
+                                <option value="ongoing">진행중</option>
+                                <option value="completed">완료</option>
+                                <option value="upcoming">예정</option>
+                            </select>
+                            <div class="date-range-picker" style="display: none;">
+                                <input type="date" id="startDate" class="date-input">
+                                <span>~</span>
+                                <input type="date" id="endDate" class="date-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="search-results">
+                        <div class="results-header">
+                            <span>검색 결과</span>
+                            <span id="resultsCount">0건</span>
+                        </div>
+                        <div id="resultsList" class="results-list">
+                            <!-- 검색 결과가 여기에 동적으로 추가됩니다 -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 입찰 상세 정보 모달 -->
+                <div id="bidDetailModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3>입찰 상세 정보</h3>
+                            <button class="close-btn">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="bid-detail-info">
+                                <div class="detail-item">
+                                    <span class="detail-label">사업명</span>
+                                    <span class="detail-value" id="detailTitle"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">기관명</span>
+                                    <span class="detail-value" id="detailAgency"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">날짜</span>
+                                    <span class="detail-value" id="detailDate"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">상태</span>
+                                    <span class="detail-value" id="detailStatus"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">예산</span>
+                                    <span class="detail-value" id="detailAmount"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">지역</span>
+                                    <span class="detail-value" id="detailLocation"></span>
+                                </div>
+                            </div>
+                            <div class="winner-info">
+                                <h4>낙찰업체 정보</h4>
+                                <div class="winner-details">
+                                    <p><strong>업체명:</strong> <span id="winnerCompany"></span></p>
+                                    <p><strong>대표자:</strong> <span id="winnerRepresentative"></span></p>
+                                    <p><strong>사업자등록번호:</strong> <span id="winnerRegistration"></span></p>
+                                    <p><strong>주소:</strong> <span id="winnerAddress"></span></p>
+                                    <p><strong>연락처:</strong> <span id="winnerContact"></span></p>
+                                    <p><strong>이메일:</strong> <span id="winnerEmail"></span></p>
+                                </div>
+                                <div class="project-details">
+                                    <p><strong>공사기간:</strong> <span id="projectPeriod"></span></p>
+                                    <p><strong>공사금액:</strong> <span id="projectAmount"></span></p>
+                                    <p><strong>낙찰률:</strong> <span id="bidRate"></span></p>
+                                </div>
+                                <h4>입찰공고 내용</h4>
+                                <pre id="announcementContent"></pre>
+                                <div class="attachments" id="attachments"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="collection-section" class="collection-section">
+                    <h3 class="section-title">입찰정보 자동 수집</h3>
+                    <div class="collection-container">
+                        <div class="collection-info">
+                            <div class="info-item" onclick="handleCollection()">
+                                <i class="fas fa-clock"></i>
+                                <div class="info-content">
+                                    <h4>실시간 수집</h4>
+                                    <p>공공기관 입찰정보를 실시간으로 자동 수집합니다.</p>
+                                </div>
+                            </div>
+                            <div class="info-item" onclick="handleCollection()">
+                                <i class="fas fa-filter"></i>
+                                <div class="info-content">
+                                    <h4>스마트 필터링</h4>
+                                    <p>사용자 맞춤형 필터로 필요한 정보만 선별합니다.</p>
+                                </div>
+                            </div>
+                            <div class="info-item" onclick="handleCollection()">
+                                <i class="fas fa-database"></i>
+                                <div class="info-content">
+                                    <h4>데이터 저장</h4>
+                                    <p>수집된 정보는 안전하게 저장되어 관리됩니다.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="collection-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">0</span>
+                                <span class="stat-label">오늘 수집된 정보</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">0%</span>
+                                <span class="stat-label">수집 정확도</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">운영 시간</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collection-table-container">
+                        <table id="collectionTable" class="collection-table">
+                            <!-- 테이블 내용이 JavaScript로 동적으로 추가됩니다 -->
+                        </table>
+                    </div>
+                </section>
+
+                <section id="analysis-section" class="analysis-section">
+                    <h3 class="section-title">입찰정보 통계 분석</h3>
+                    <div class="analysis-container">
+                        <div class="analysis-charts">
+                            <div class="chart-item" onclick="showAnalysisDetails('monthly')">
+                                <h4>월별 입찰 현황</h4>
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <p>월별 입찰 건수 및 금액 추이</p>
+                                </div>
+                            </div>
+                            <div class="chart-item" onclick="showAnalysisDetails('agency')">
+                                <h4>기관별 입찰 비중</h4>
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-pie"></i>
+                                    <p>기관별 입찰 건수 분포</p>
+                                </div>
+                            </div>
+                            <div class="chart-item" onclick="showAnalysisDetails('industry')">
+                                <h4>업종별 입찰 현황</h4>
+                                <div class="chart-placeholder">
+                                    <i class="fas fa-chart-line"></i>
+                                    <p>업종별 입찰 건수 추이</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="analysis-stats">
+                            <div class="stat-card" onclick="showAnalysisDetails('agency-stats')">
+                                <div class="stat-header">
+                                    <i class="fas fa-building"></i>
+                                    <h4>기관별 통계</h4>
+                                </div>
+                                <div class="stat-content">
+                                    <p>총 1,234개 기관</p>
+                                    <p>평균 입찰 건수: 45건</p>
+                                </div>
+                            </div>
+                            <div class="stat-card" onclick="showAnalysisDetails('industry-stats')">
+                                <div class="stat-header">
+                                    <i class="fas fa-industry"></i>
+                                    <h4>업종별 통계</h4>
+                                </div>
+                                <div class="stat-content">
+                                    <p>총 12개 업종</p>
+                                    <p>평균 입찰 금액: 2.5억원</p>
+                                </div>
+                            </div>
+                            <div class="stat-card" onclick="showAnalysisDetails('period-stats')">
+                                <div class="stat-header">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <h4>기간별 통계</h4>
+                                </div>
+                                <div class="stat-content">
+                                    <p>최근 1년간 5,678건</p>
+                                    <p>월평균 473건</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 분석 상세 정보 모달 -->
+                <div id="analysisDetailModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <h3 class="modal-title">분석 상세 정보</h3>
+                        <div class="modal-body">
+                            <div class="analysis-detail-info">
+                                <div class="detail-item">
+                                    <span class="detail-label">분석 유형</span>
+                                    <span id="analysisType" class="detail-value"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">기간</span>
+                                    <span id="analysisPeriod" class="detail-value"></span>
+                                </div>
+                                <div class="detail-item">
+                                    <span class="detail-label">총 건수</span>
+                                    <span id="analysisCount" class="detail-value"></span>
+                                </div>
+                            </div>
+                            <div class="analysis-detail-content">
+                                <h4>상세 데이터</h4>
+                                <div id="analysisData" class="data-table"></div>
+                            </div>
+                            <div class="analysis-detail-chart">
+                                <h4>시각화</h4>
+                                <div id="analysisChart" class="chart-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bid-info-section" id="bid-info">
+                    <h3 class="section-title">낙찰정보 수집 및 문자발송 서비스</h3>
+                    <div class="bid-info-grid">
+                        <a href="#auto-collection" class="bid-info-item">
+                            <i class="fas fa-file-contract"></i>
+                            <div class="bid-info-label">낙찰정보 자동 수집</div>
+                            <div class="bid-info-desc">공공기관 입찰정보 실시간 수집</div>
+                        </a>
+                        <a href="#sms-service" class="bid-info-item">
+                            <i class="fas fa-sms"></i>
+                            <div class="bid-info-label">낙찰업체 문자발송</div>
+                            <div class="bid-info-desc">낙찰결과 즉시 SMS 발송</div>
+                        </a>
+                        <a href="#history" class="bid-info-item">
+                            <i class="fas fa-history"></i>
+                            <div class="bid-info-label">이력관리</div>
+                            <div class="bid-info-desc">발송이력 자동 저장</div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="notification-form" id="sms-service">
+                    <h3 class="form-title">문자발송 서비스 신청</h3>
+                    <form id="smsForm" class="sms-form">
+                        <div class="form-group">
+                            <label for="companyName">업체명</label>
+                            <input type="text" id="companyName" name="companyName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phoneNumber">연락처</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">이메일</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <button type="submit" class="submit-btn">서비스 신청하기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>2025년 04월 | 정보통신 입찰정보 포털 시스템 개발팀</span>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,300 @@
+/* 반응형 디자인 개선을 위한 추가 CSS */
+
+/* 기본 모바일 우선 스타일 */
+@media (max-width: 1280px) {
+    .slide {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+        min-height: auto;
+    }
+    
+    .slide-content {
+        padding: 1.5rem;
+    }
+    
+    .main-nav {
+        display: none; /* 모바일에서는 기본 네비게이션 숨김 */
+    }
+    
+    /* 모바일 메뉴 버튼 스타일 */
+    .mobile-menu-btn {
+        display: block;
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        margin-left: auto;
+        z-index: 200;
+    }
+    
+    /* 모바일 메뉴 스타일 */
+    .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 100px;
+        left: 0;
+        width: 100%;
+        background: #0056b3;
+        z-index: 100;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .mobile-menu.active {
+        display: block;
+    }
+    
+    .mobile-menu a {
+        display: block;
+        padding: 1rem 2rem;
+        color: white;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    
+    .mobile-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* 태블릿 스타일 */
+@media (max-width: 768px) {
+    .title-block {
+        margin-top: 120px;
+    }
+    
+    .main-title {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+    
+    .sub-title {
+        font-size: 1.3rem;
+        margin-bottom: 2rem;
+    }
+    
+    .icon-grid {
+        gap: 1.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    /* 검색 섹션 개선 */
+    .search-container {
+        flex-direction: column;
+    }
+    
+    .search-box {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .search-filters {
+        width: 100%;
+    }
+    
+    .filter-group {
+        flex-direction: column;
+    }
+    
+    .filter-item {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .date-range-picker {
+        flex-direction: column;
+    }
+    
+    .date-input {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* 결과 목록 개선 */
+    .results-container {
+        margin-top: 1.5rem;
+    }
+    
+    .result-item {
+        padding: 1rem;
+    }
+    
+    /* 모달 개선 */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+        margin: 5% auto;
+    }
+    
+    .bid-detail-info {
+        grid-template-columns: 1fr;
+    }
+    
+    /* 입찰정보 섹션 개선 */
+    .bid-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    /* 수집 섹션 개선 */
+    .collection-info {
+        flex-direction: column;
+    }
+    
+    .info-item {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    /* 분석 섹션 개선 */
+    .analysis-charts {
+        grid-template-columns: 1fr;
+    }
+    
+    .chart-item {
+        margin-bottom: 1rem;
+    }
+    
+    /* 폼 개선 */
+    .notification-form {
+        padding: 1.5rem;
+    }
+    
+    .form-title {
+        font-size: 1.3rem;
+    }
+}
+
+/* 스마트폰 스타일 */
+@media (max-width: 480px) {
+    .slide-header {
+        height: 80px;
+        padding: 0 1rem;
+    }
+    
+    .logo {
+        font-size: 1.2rem;
+    }
+    
+    .title-block {
+        margin-top: 100px;
+    }
+    
+    .main-title {
+        font-size: 1.8rem;
+    }
+    
+    .sub-title {
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .icon-grid {
+        gap: 1rem;
+    }
+    
+    .icon-item {
+        min-width: 80px;
+    }
+    
+    .icon-item i {
+        font-size: 2rem;
+    }
+    
+    .icon-label {
+        font-size: 0.9rem;
+    }
+    
+    /* 검색 결과 개선 */
+    .result-item {
+        padding: 0.8rem;
+    }
+    
+    .result-title {
+        font-size: 1rem;
+    }
+    
+    .result-meta {
+        font-size: 0.8rem;
+    }
+    
+    /* 모달 개선 */
+    .modal-title {
+        font-size: 1.3rem;
+    }
+    
+    .detail-label {
+        font-size: 0.8rem;
+    }
+    
+    .detail-value {
+        font-size: 0.9rem;
+    }
+    
+    /* 폼 개선 */
+    .form-group label {
+        font-size: 0.9rem;
+    }
+    
+    .form-group input {
+        padding: 0.6rem;
+        font-size: 0.9rem;
+    }
+    
+    .submit-btn {
+        padding: 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+/* 접근성 개선 */
+:focus {
+    outline: 2px solid #0076e0;
+    outline-offset: 2px;
+}
+
+/* 터치 타겟 크기 개선 */
+button, 
+.icon-item,
+.nav-link,
+.result-item,
+.info-item,
+.chart-item,
+.bid-info-item {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* 로딩 인디케이터 */
+.loading {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+}
+
+.loading.active {
+    display: block;
+}
+
+.loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    border: 4px solid rgba(0, 86, 179, 0.2);
+    border-top-color: #0056b3;
+    border-radius: 50%;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
